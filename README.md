@@ -1,1 +1,0 @@
-# tappad-support
