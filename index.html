@@ -1,8 +1,318 @@
 <!DOCTYPE html>
-<html>
-<head><title>TapPad Support</title></head>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TapPad Support</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=DM+Sans:wght@300;400;500;700&display=swap');
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --green: #39FF14;
+    --bg: #0D0D0D;
+    --surface: #1C1C1E;
+    --surface2: #2A2A2C;
+    --text: #F5F5F5;
+    --muted: #888;
+    --border: rgba(57,255,20,0.2);
+  }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  .grid-bg {
+    position: fixed;
+    inset: 0;
+    background-image: 
+      linear-gradient(rgba(57,255,20,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(57,255,20,0.03) 1px, transparent 1px);
+    background-size: 40px 40px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .wrap {
+    position: relative;
+    z-index: 1;
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 0 24px 80px;
+  }
+
+  header {
+    padding: 60px 0 48px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .logo {
+    width: 56px;
+    height: 56px;
+    border-radius: 16px;
+    overflow: hidden;
+    flex-shrink: 0;
+    box-shadow: 0 0 20px rgba(57,255,20,0.2);
+  }
+
+  .logo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .header-text h1 {
+    font-family: 'Space Mono', monospace;
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    color: var(--text);
+  }
+
+  .header-text p {
+    font-size: 14px;
+    color: var(--muted);
+    margin-top: 2px;
+  }
+
+  .tag {
+    display: inline-block;
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    color: var(--green);
+    border: 1px solid var(--border);
+    padding: 2px 8px;
+    border-radius: 4px;
+    margin-left: 10px;
+    vertical-align: middle;
+    letter-spacing: 1px;
+  }
+
+  .section-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 2px;
+    color: var(--green);
+    text-transform: uppercase;
+    margin-bottom: 16px;
+    opacity: 0.8;
+  }
+
+  .faq-list {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    margin-bottom: 48px;
+  }
+
+  .faq-item {
+    background: var(--surface);
+    border-radius: 12px;
+    border: 1px solid rgba(255,255,255,0.06);
+    overflow: hidden;
+    transition: border-color 0.2s;
+  }
+
+  .faq-item:hover {
+    border-color: var(--border);
+  }
+
+  .faq-q {
+    width: 100%;
+    text-align: left;
+    background: none;
+    border: none;
+    padding: 18px 20px;
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+    font-weight: 500;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .faq-q .arrow {
+    color: var(--green);
+    font-size: 18px;
+    flex-shrink: 0;
+    transition: transform 0.25s;
+    line-height: 1;
+  }
+
+  .faq-a {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease, padding 0.3s;
+    padding: 0 20px;
+    font-size: 14px;
+    color: var(--muted);
+    line-height: 1.7;
+  }
+
+  .faq-item.open .faq-a {
+    max-height: 200px;
+    padding: 0 20px 18px;
+  }
+
+  .faq-item.open .arrow {
+    transform: rotate(45deg);
+  }
+
+  .contact-card {
+    background: var(--surface);
+    border-radius: 16px;
+    border: 1px solid var(--border);
+    padding: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    box-shadow: 0 0 40px rgba(57,255,20,0.05);
+  }
+
+  .contact-left h2 {
+    font-family: 'Space Mono', monospace;
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+
+  .contact-left p {
+    font-size: 14px;
+    color: var(--muted);
+    line-height: 1.6;
+    max-width: 280px;
+  }
+
+  .email-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--green);
+    color: #000;
+    font-family: 'Space Mono', monospace;
+    font-size: 13px;
+    font-weight: 700;
+    padding: 12px 20px;
+    border-radius: 10px;
+    text-decoration: none;
+    white-space: nowrap;
+    transition: opacity 0.2s, transform 0.1s;
+    flex-shrink: 0;
+  }
+
+  .email-btn:hover {
+    opacity: 0.85;
+    transform: translateY(-1px);
+  }
+
+  .divider {
+    height: 1px;
+    background: rgba(255,255,255,0.06);
+    margin: 48px 0;
+  }
+
+  footer {
+    text-align: center;
+    font-size: 12px;
+    color: var(--muted);
+    padding-top: 8px;
+    font-family: 'Space Mono', monospace;
+    opacity: 0.5;
+    margin-top: 48px;
+  }
+
+  @media (max-width: 500px) {
+    .contact-card { flex-direction: column; align-items: flex-start; }
+    header { padding: 40px 0 32px; }
+  }
+</style>
+</head>
 <body>
-<h1>TapPad Support</h1>
-<p>For help or questions, email us: <a href="mailto:info@chabotum.com">info@chatbotum.com</a></p>
+<div class="grid-bg"></div>
+<div class="wrap">
+  <header>
+    <div class="logo">
+      <img src="https://raw.githubusercontent.com/ahmetsoyak/tappad-support/master/images/soundboard_app_icon.png" alt="TapPad icon" />
+    </div>
+    <div class="header-text">
+      <h1>TapPad <span class="tag">SUPPORT</span></h1>
+      <p>Your instant soundboard for every moment</p>
+    </div>
+  </header>
+
+  <p class="section-label">FAQ</p>
+  <div class="faq-list">
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggle(this)">
+        How do I add my own sounds?
+        <span class="arrow">+</span>
+      </button>
+      <div class="faq-a">Long-press any pad to enter edit mode. You can record with the mic, import a file from your library, or choose from the built-in sound collection.</div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggle(this)">
+        What's included in Premium?
+        <span class="arrow">+</span>
+      </button>
+      <div class="faq-a">Premium unlocks all 18 pads, mic recording, and file import. It's a one-time purchase — no subscription, ever.</div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggle(this)">
+        I bought Premium but it's not showing up.
+        <span class="arrow">+</span>
+      </button>
+      <div class="faq-a">Go to Settings inside TapPad and tap "Restore Purchases." This will recover your purchase if you reinstalled the app or switched devices.</div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggle(this)">
+        What is Lock Mode?
+        <span class="arrow">+</span>
+      </button>
+      <div class="faq-a">Lock Mode hides all edit controls so you only see your pads. Perfect for having the board ready on the table without accidentally editing anything.</div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggle(this)">
+        Which audio formats are supported?
+        <span class="arrow">+</span>
+      </button>
+      <div class="faq-a">TapPad supports MP3, WAV, M4A, and AAC files. For best results, keep clips under 10 seconds.</div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <p class="section-label">Contact</p>
+  <div class="contact-card">
+    <div class="contact-left">
+      <h2>Still need help?</h2>
+      <p>Send us a message and we'll get back to you within 24 hours.</p>
+    </div>
+    <a class="email-btn" href="mailto:info@chatbotum.com">
+      Email us
+    </a>
+  </div>
+
+  <footer>© 2026 TapPad · All rights reserved</footer>
+</div>
+
+<script>
+function toggle(btn) {
+  const item = btn.closest('.faq-item');
+  const isOpen = item.classList.contains('open');
+  document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+  if (!isOpen) item.classList.add('open');
+}
+</script>
 </body>
 </html>
