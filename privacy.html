@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TapPad Privacy Policy</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=DM+Sans:wght@300;400;500;700&display=swap');
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --green: #39FF14;
+    --bg: #0D0D0D;
+    --surface: #1C1C1E;
+    --text: #F5F5F5;
+    --muted: #888;
+    --border: rgba(57,255,20,0.2);
+  }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  .grid-bg {
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(57,255,20,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(57,255,20,0.03) 1px, transparent 1px);
+    background-size: 40px 40px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .wrap {
+    position: relative;
+    z-index: 1;
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 0 24px 80px;
+  }
+
+  header {
+    padding: 60px 0 48px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .logo {
+    width: 56px;
+    height: 56px;
+    border-radius: 16px;
+    overflow: hidden;
+    flex-shrink: 0;
+    box-shadow: 0 0 20px rgba(57,255,20,0.2);
+  }
+
+  .logo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .header-text h1 {
+    font-family: 'Space Mono', monospace;
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    color: var(--text);
+  }
+
+  .header-text p {
+    font-size: 14px;
+    color: var(--muted);
+    margin-top: 2px;
+  }
+
+  .tag {
+    display: inline-block;
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    color: var(--green);
+    border: 1px solid var(--border);
+    padding: 2px 8px;
+    border-radius: 4px;
+    margin-left: 10px;
+    vertical-align: middle;
+    letter-spacing: 1px;
+  }
+
+  .updated {
+    display: inline-block;
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    color: var(--muted);
+    margin-bottom: 40px;
+    letter-spacing: 1px;
+  }
+
+  .section {
+    background: var(--surface);
+    border-radius: 16px;
+    border: 1px solid rgba(255,255,255,0.06);
+    padding: 28px;
+    margin-bottom: 12px;
+    transition: border-color 0.2s;
+  }
+
+  .section:hover {
+    border-color: var(--border);
+  }
+
+  .section-title {
+    font-family: 'Space Mono', monospace;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--green);
+    letter-spacing: 1px;
+    margin-bottom: 12px;
+    text-transform: uppercase;
+  }
+
+  .section p {
+    font-size: 15px;
+    color: var(--muted);
+    line-height: 1.8;
+  }
+
+  .badge-row {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-top: 16px;
+  }
+
+  .badge {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    color: var(--green);
+    border: 1px solid var(--border);
+    padding: 4px 12px;
+    border-radius: 20px;
+    letter-spacing: 0.5px;
+  }
+
+  .contact-card {
+    background: var(--surface);
+    border-radius: 16px;
+    border: 1px solid var(--border);
+    padding: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    margin-top: 32px;
+    box-shadow: 0 0 40px rgba(57,255,20,0.05);
+  }
+
+  .contact-card h2 {
+    font-family: 'Space Mono', monospace;
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 6px;
+  }
+
+  .contact-card p {
+    font-size: 14px;
+    color: var(--muted);
+  }
+
+  .email-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--green);
+    color: #000;
+    font-family: 'Space Mono', monospace;
+    font-size: 13px;
+    font-weight: 700;
+    padding: 12px 20px;
+    border-radius: 10px;
+    text-decoration: none;
+    white-space: nowrap;
+    transition: opacity 0.2s, transform 0.1s;
+    flex-shrink: 0;
+  }
+
+  .email-btn:hover {
+    opacity: 0.85;
+    transform: translateY(-1px);
+  }
+
+  footer {
+    text-align: center;
+    font-size: 12px;
+    color: var(--muted);
+    font-family: 'Space Mono', monospace;
+    opacity: 0.5;
+    margin-top: 48px;
+  }
+
+  @media (max-width: 500px) {
+    .contact-card { flex-direction: column; align-items: flex-start; }
+    header { padding: 40px 0 32px; }
+  }
+</style>
+</head>
+<body>
+<div class="grid-bg"></div>
+<div class="wrap">
+  <header>
+    <div class="logo">
+      <img src="https://raw.githubusercontent.com/ahmetsoyak/tappad-support/master/images/soundboard_app_icon.png" alt="TapPad icon" />
+    </div>
+    <div class="header-text">
+      <h1>TapPad <span class="tag">PRIVACY</span></h1>
+      <p>Your instant soundboard for every moment</p>
+    </div>
+  </header>
+
+  <span class="updated">Last updated: May 2026</span>
+
+  <div class="section">
+    <div class="section-title">No data collected</div>
+    <p>TapPad does not collect, store, or transmit any personal data. Everything stays on your device — your sounds, your settings, your pads.</p>
+    <div class="badge-row">
+      <span class="badge">No tracking</span>
+      <span class="badge">No analytics</span>
+      <span class="badge">No ads</span>
+      <span class="badge">Fully offline</span>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Local storage only</div>
+    <p>Sound files and pad configurations are stored locally in your device's Documents directory using standard iOS file storage. Nothing is uploaded to any server.</p>
+  </div>
+
+  <div class="section">
+    <div class="section-title">In-app purchases</div>
+    <p>The Premium upgrade is processed entirely by Apple via StoreKit. We never see or store your payment information. Purchase history is managed by your Apple ID.</p>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Microphone access</div>
+    <p>TapPad requests microphone access only when you choose to record a sound. Audio is saved locally and never leaves your device.</p>
+  </div>
+
+  <div class="contact-card">
+    <div>
+      <h2>Questions?</h2>
+      <p>We're happy to help with any privacy concerns.</p>
+    </div>
+    <a class="email-btn" href="mailto:YOUR@EMAIL.COM">✉ Email us</a>
+  </div>
+
+  <footer>© 2026 TapPad · All rights reserved</footer>
+</div>
+</body>
+</html>
